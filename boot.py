@@ -12,7 +12,7 @@ def analyse_barcode():
     data = Data(upc)
     movie_name = data.search_upc()
 
-    if movie_name is not None:
+    if movie_name is not []:
         return jsonify({'message': 'Found movie', 'movie_name': movie_name, 'upc': str(upc)}), 200
 
     return jsonify({'message': 'Could not find any movies', 'upc': str(upc)}), 404
