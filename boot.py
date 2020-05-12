@@ -5,13 +5,17 @@ import requests
 
 app = Flask(__name__)
 
+
 @app.route('/analyse_barcode')
 def analyse_barcode():
     upc = request.args.get('upc')
-    print(upc)
     data = Data(upc)
-    data.search_upc()
-    return str(upc)
+    movie_name = data.search_upc()
+
+    if movie_name is not None:
+        return jsonify({'message': 'Found movie', 'movie_name': movie_name, 'upc': str(upc)}), 200
+
+    return jsonify({'message': 'Could not find any movies', 'upc': str(upc)}), 404
 
 
 if __name__ == "__main__":

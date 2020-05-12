@@ -27,17 +27,15 @@ class Data:
         cookie = requests.cookies.create_cookie(**cookies, **optional)
        
         s.cookies.set_cookie(cookie)
-        print(s.cookies)
 
         response = s.get(url)
         print(s.cookies.get_dict())
-        # print(req.cookies)
+
         soup = BeautifulSoup(response.content, 'html.parser')
         
-        h2 = soup.find_all("h2", class_="oswaldcollection")
+        # h2 = soup.find_all("h2", class_="oswaldcollection")
         a_tag = soup.find_all("a", class_="hoverlink")
        
         movie_name = re.findall(r'(?<=\btitle=")[^"]*', str(a_tag))
-        
-        print(h2)
-        print(movie_name)
+
+        return movie_name
