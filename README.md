@@ -1,4 +1,4 @@
-# bluray_barcode_scanner
+# Blu-ray barcode scanner
 Scrapes the bluray.com website to find movies using UPC / EAN codes.
 
 These movies can be used to fetch metadata from other API's.
