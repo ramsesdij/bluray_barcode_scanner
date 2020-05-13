@@ -43,8 +43,12 @@ class Data:
         name = re.findall(r'(?<=\btitle=")[^"]*', str(a_tag))
 
         if name:
+            year = re.findall(r'\(([^\)]+)\)', str(a_tag))
+
+            name = name[0].replace(' ' + year[0], '')
+            
             self.movie_name = name[0]
-            print("FOUND MOVIE NAME: " + self.movie_name[0])
+            print("FOUND MOVIE NAME: " + self.movie_name)
 
             name_url = re.findall(r'(?<=\bhref=")[^"]*', str(a_tag))
 
