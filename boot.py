@@ -10,11 +10,11 @@ app = Flask(__name__)
 def analyse_barcode():
     upc = request.args.get('upc')
     data = Data(upc)
-    movie_name, nation = data.search_upc()
+    movie_name, pub_nation = data.get_all_data()
 
     if movie_name is not []:
-        return jsonify({'message': 'Found movie', 'movie_name': movie_name, 
-            'pub_nation': nation, 'upc': str(upc)}), 200
+        return jsonify({'message': 'Found movie', 'movie_name': movie_name,
+            'pub_nation': pub_nation, 'upc': str(upc)}), 200
 
     return jsonify({'message': 'Could not find any movies', 'upc': str(upc)}), 404
 
