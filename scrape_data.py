@@ -51,7 +51,7 @@ class ScrapeData:
             print(year_numbers)
 
             if year_numbers:
-                self.movie_year = year_numbers
+                self.movie_year = year_numbers[0]
 
             name = name[0].replace(' ' + year[0], '')
 

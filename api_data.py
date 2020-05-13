@@ -28,4 +28,4 @@ class APIData:
             print(res.title)
 
     def get_all_data(self):
-        return self.movie_name
+        return self.movie_name, self.movie_year
