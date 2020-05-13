@@ -1,4 +1,5 @@
 from tmdbv3api import TMDb
+from tmdbv3api import Movie
 
 
 class APIData:
@@ -8,6 +9,7 @@ class APIData:
     def __init__(self, movie_name):
         self.tmdb = TMDb()
         self.tmdb.api_key = self.api_key
+        self.movie = Movie()
         self.movie_name = movie_name
         self.find_movie_meta()
 
@@ -17,7 +19,7 @@ class APIData:
         self.api_key = line[0]
 
     def find_movie_meta(self):
-        results = movie.search(self.movie_name)
+        results = self.movie.search(self.movie_name)
 
         for res in results:
             print(res.id)
