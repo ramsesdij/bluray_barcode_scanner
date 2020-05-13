@@ -4,13 +4,15 @@ from tmdbv3api import Movie
 
 class APIData:
     movie_name = None
+    movie_year = None
     api_key = None
 
-    def __init__(self, movie_name):
+    def __init__(self, movie_name, movie_year):
         self.tmdb = TMDb()
         self.tmdb.api_key = self.api_key
         self.movie = Movie()
         self.movie_name = movie_name
+        self.movie_year = movie_year
         self.find_movie_meta()
 
     def get_api_key(self):

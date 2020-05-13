@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 class ScrapeData:
     movie_name = None
+    movie_year = None
     pub_nation = None
 
     def __init__(self, upc):
@@ -45,6 +46,13 @@ class ScrapeData:
         if name:
             year = re.findall(r'\(.*\)', str(name[0]))
             print(year)
+
+            year_numbers = re.findall(r'\(([^)]+)\)', str(year))
+            print(year_numbers)
+
+            if year_numbers:
+                self.movie_year = year_numbers
+
             name = name[0].replace(' ' + year[0], '')
 
             self.movie_name = name
@@ -67,4 +75,4 @@ class ScrapeData:
             print("FOUND NATION: " + self.pub_nation)
 
     def get_all_data(self):
-        return self.movie_name, self.pub_nation
+        return self.movie_name, self.movie_year, self.pub_nation
