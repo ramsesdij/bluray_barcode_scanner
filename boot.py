@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, make_response
-from data import Data
+from scrape_data import ScrapeData
+from api_data import APIData
 import os
 import requests
 
@@ -9,8 +10,11 @@ app = Flask(__name__)
 @app.route('/analyse_barcode')
 def analyse_barcode():
     upc = request.args.get('upc')
-    data = Data(upc)
-    movie_name, pub_nation = data.get_all_data()
+    scrape_data = ScrapeData(upc)
+    movie_name, pub_nation = scrape_data.get_all_data()
+
+    meta_data = APIData(movie_name)
+    meta_data.get_all_data()
 
     if movie_name is not []:
         return jsonify({'message': 'Found movie', 'movie_name': movie_name,

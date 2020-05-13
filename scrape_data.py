@@ -3,7 +3,7 @@ import re
 from bs4 import BeautifulSoup
 
 
-class Data:
+class ScrapeData:
     movie_name = None
     pub_nation = None
 
