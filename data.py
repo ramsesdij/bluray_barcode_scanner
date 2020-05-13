@@ -44,7 +44,7 @@ class Data:
 
         if name:
             year = re.findall(r'\(([^\)]+)\)', str(a_tag))
-
+            print(year)
             name = name[0].replace(' ' + year[0], '')
 
             self.movie_name = name
