@@ -40,15 +40,17 @@ class Data:
         movie_name = re.findall(r'(?<=\btitle=")[^"]*', str(a_tag))
         movie_url = re.findall(r'(?<=\bhref=")[^"]*', str(a_tag))
 
-        self.fetch_nation(movie_url)
+        nation = self.fetch_nation(movie_url[0])
 
-        return movie_name
+        print("FOUND NAME: " + movie_name[0])
+        print("FOUND NATION: " + nation[0])
+        return movie_name, nation
 
     def fetch_nation(self, movie_url):
         response = self.s.get(movie_url)
         soup = BeautifulSoup(response.content, 'html.parser')
 
-        nation = soup.find(lambda tag: tag.name == "img" and "flag" in tag.src)
+        td = soup.find_all('td', {'width': '518'})
 
-        print(nation)
-        # nation = soup.find_all("img", src_="")
+        nation = re.findall(r'(?<=\btitle=")[^"]*', str(td))
+        return nation
