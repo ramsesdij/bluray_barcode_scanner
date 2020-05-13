@@ -43,7 +43,7 @@ class Data:
         name = re.findall(r'(?<=\btitle=")[^"]*', str(a_tag))
 
         if name:
-            year = re.findall(r'\(.*\)', str(a_tag))
+            year = re.findall(r'\(.*\)', str(name[0]))
             print(year)
             name = name[0].replace(' ' + year[0], '')
 
