@@ -14,15 +14,17 @@ class MovieDatabase:
                                      charset='utf8mb4',
                                      cursorclass=pymysql.cursors.DictCursor)
 
-    def add_movie(self, movie_name, movie_year, pub_country, watched, duration_minutes, loaned, upc):
+    def add_movie(self, movie):
         try:
             with self.connection.cursor() as cursor:
-                sql = "INSERT INTO `movies` (`movie_name`, `movie_year`, `pub_country`, `watched`, `duration_minutes`, `loaned`, `upc`) " \
+                sql = "INSERT INTO `movies` (`movie_name`, `movie_year`, `pub_nation`, `duration_minutes`, `tmdb_id`, `imdb_id`, `upc`) " \
                       "VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
-                cursor.execute(sql, (movie_name, movie_year, pub_country, watched, duration_minutes, loaned, upc))
+                cursor.execute(sql, (movie['movie_name'], movie['movie_year'], movie['pub_nation'],
+                                     movie['duration_minutes'], movie['tmdb_id'], movie['imdb_id'], movie['upc']))
 
             self.connection.commit()
+            print("ADDED MOVIE TO DATABASE")
         finally:
             self.connection.close()
 

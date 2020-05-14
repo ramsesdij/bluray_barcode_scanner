@@ -8,17 +8,21 @@ dotenv.load_dotenv()
 
 class Movie:
     upc = None
+    pub_nation = None
     movie_name = None
     movie_year = None
     tmdb_id = None
     imdb_id = None
     runtime = None
 
-    def __init__(self, upc, movie_name, movie_year):
+    def __init__(self, upc, pub_nation, movie_name, movie_year):
         self.upc = upc
+        self.pub_nation = pub_nation
         self.movie_name = movie_name
         self.movie_year = movie_year
-        self.find_movie_meta()
+
+        if not self.movie_name and self.movie_year:
+            self.find_movie_meta()
 
     def find_movie_meta(self):
         id_response = requests.get(f'https://api.themoviedb.org/3/search/movie?api_key={os.getenv("TMDB_KEY")}'
@@ -33,4 +37,12 @@ class Movie:
         self.runtime = result['runtime']
 
     def get_all_data(self):
-        return self.movie_name, self.movie_year, self.tmdb_id, self.imdb_id, self.runtime
+        return {
+            'upc': self.upc,
+            'pub_nation': self.pub_nation,
+            'movie_name': self.movie_name,
+            'movie_year': self.movie_year,
+            'tmdb_id': self.tmdb_id,
+            'imdb_id': self.imdb_id,
+            'runtime': self.runtime
+        }
