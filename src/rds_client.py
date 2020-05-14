@@ -21,7 +21,7 @@ class MovieDatabase:
                       "VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
                 cursor.execute(sql, (movie['movie_name'], movie['movie_year'], movie['pub_nation'],
-                                     movie['duration_minutes'], movie['tmdb_id'], movie['imdb_id'], movie['upc']))
+                                     movie['runtime'], movie['tmdb_id'], movie['imdb_id'], movie['upc']))
 
             self.connection.commit()
             print("ADDED MOVIE TO DATABASE")
