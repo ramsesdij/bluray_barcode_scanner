@@ -47,8 +47,3 @@ class MovieDatabase:
                 return cursor.fetchall()
         finally:
             self.connection.close()
-
-
-mdb = MovieDatabase()
-res = mdb.display_all_movies()
-print(res)
