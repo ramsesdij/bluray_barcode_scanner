@@ -19,9 +19,9 @@ class MovieDatabase:
             with self.connection.cursor() as cursor:
                 sql = "INSERT INTO `movies` (`movie_name`, `movie_year`, `pub_nation`, `duration_minutes`, `tmdb_id`, `imdb_id`, `upc`) " \
                       "VALUES (%s, %s, %s, %s, %s, %s, %s)"
-
+                
                 cursor.execute(sql, (movie['movie_name'], movie['movie_year'], movie['pub_nation'],
-                                     int(movie['runtime']), movie['tmdb_id'], movie['imdb_id'], movie['upc']))
+                                     movie['runtime'], movie['tmdb_id'], movie['imdb_id'], movie['upc']))
 
             self.connection.commit()
             print("ADDED MOVIE TO DATABASE")
