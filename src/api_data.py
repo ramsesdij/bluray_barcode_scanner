@@ -1,5 +1,9 @@
+import os
+import dotenv
 from tmdbv3api import TMDb
 from tmdbv3api import Movie
+
+dotenv.load_dotenv()
 
 
 class APIData:
@@ -16,9 +20,7 @@ class APIData:
         self.find_movie_meta()
 
     def get_api_key(self):
-        f = open('api_key.txt')
-        line = f.readline()
-        self.api_key = line[0]
+        self.api_key = os.getenv('TMDB_KEY')
 
     def find_movie_meta(self):
         results = self.movie.search(self.movie_name)

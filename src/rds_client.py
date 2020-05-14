@@ -1,5 +1,8 @@
 import os
+import dotenv
 import pymysql.cursors
+
+dotenv.load_dotenv()
 
 
 class MovieDatabase:
