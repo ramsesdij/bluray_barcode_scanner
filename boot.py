@@ -1,8 +1,6 @@
-from flask import Flask, jsonify, request, make_response
-from scrape_data import ScrapeData
-from api_data import APIData
-import os
-import requests
+from flask import Flask, jsonify, request
+from src.scrape_data import ScrapeData
+from src.api_data import APIData
 
 app = Flask(__name__)
 
