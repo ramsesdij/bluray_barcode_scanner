@@ -21,7 +21,7 @@ class Movie:
         self.movie_name = movie_name
         self.movie_year = movie_year
 
-        if not self.movie_name and self.movie_year:
+        if not self.movie_name and not self.movie_year:
             self.find_movie_meta()
 
     def find_movie_meta(self):
