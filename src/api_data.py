@@ -1,33 +1,36 @@
 import os
 import dotenv
-from tmdbv3api import TMDb
-from tmdbv3api import Movie
+import json
+import requests
 
 dotenv.load_dotenv()
 
 
-class APIData:
+class Movie:
+    upc = None
     movie_name = None
     movie_year = None
-    api_key = None
+    tmdb_id = None
+    imdb_id = None
+    runtime = None
 
-    def __init__(self, movie_name, movie_year):
-        self.tmdb = TMDb()
-        self.tmdb.api_key = self.api_key
-        self.movie = Movie()
+    def __init__(self, upc, movie_name, movie_year):
+        self.upc = upc
         self.movie_name = movie_name
         self.movie_year = movie_year
         self.find_movie_meta()
 
-    def get_api_key(self):
-        self.api_key = os.getenv('TMDB_KEY')
-
     def find_movie_meta(self):
-        results = self.movie.search(self.movie_name)
+        id_response = requests.get(f'https://api.themoviedb.org/3/search/movie?api_key={os.getenv("TMDB_KEY")}'
+                               f'&query={self.movie_name}&year={self.movie_year}')
 
-        for res in results:
-            print(res.id)
-            print(res.title)
+        results = json.loads(id_response.content)['results']
+        self.tmdb_id = results[0]['id']
+
+        response = requests.get(f'https://api.themoviedb.org/3/movie/{self.tmdb_id}?api_key={os.getenv("TMDB_KEY")}')
+        result = json.loads(response.content)
+        self.imdb_id = result['imdb_id']
+        self.runtime = result['runtime']
 
     def get_all_data(self):
-        return self.movie_name, self.movie_year
+        return self.movie_name, self.movie_year, self.tmdb_id, self.imdb_id, self.runtime
